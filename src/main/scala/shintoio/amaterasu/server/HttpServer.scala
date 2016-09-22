@@ -46,7 +46,7 @@ object HttpServer {
     server.addConnector(connector)
     server.start()
 
-    println("started on port ")
+    println("Server started on port ")
   }
 
   def stop() {
@@ -64,7 +64,7 @@ object HttpServer {
 
     override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {
       val url = request.getRequestURL + (if (request.getQueryString != null) "?" + request.getQueryString else "")
-      println("handling - " + url)
+      println("handling URL - " + url)
 
       try {
         handle(request, response)
@@ -79,7 +79,6 @@ object HttpServer {
 
     def handle(request: HttpServletRequest, response: HttpServletResponse): Unit = {
       val uri = request.getRequestURI
-      print(uri+"\n")
       if (uri.startsWith("/jar")) downloadFile("/Users/devarajan/work/amaterasu_project/temp/HttpServer.jar", response)
       else if (uri.startsWith("/text")) downloadFile("/Users/devarajan/work/amaterasu_project/temp/fileserve.txt", response)
       /*else if (uri.startsWith("/jre/") && Config.jre != null) downloadFile(Config.jre, response)
